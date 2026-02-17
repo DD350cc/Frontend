@@ -1,7 +1,18 @@
-import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
-const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/",
-});
+export const verifyCertificates = async (number) => {
 
-export default api;
+  try{
+    const response = await fetch(
+      `${API_URL}/api/certificates/verify/?number=${number}`
+    );
+
+    const data = await response.json()
+    return data;
+  }
+
+  catch (error) {
+    console.error("Error verifying certificates: ", error)
+    return { exists: false };
+  }
+};

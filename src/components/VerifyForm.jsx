@@ -1,6 +1,7 @@
 import { useState } from "react";
-import api from "../api/api";
+import {verifyCertificates} from "../api/api";
 import ResultCard from "./ResultCard";
+
 
 export default function VerifyForm() {
     const [number, setNumber] = useState("");
@@ -16,9 +17,7 @@ export default function VerifyForm() {
         setResult(null);
 
         try {
-            const res = await api.get(
-                `certificates/verify/?number=${number}`
-            );
+            const res = await verifyCertificates(number);
             setResult(res.data);
         } catch {
             setError("Server error. Try again.");
